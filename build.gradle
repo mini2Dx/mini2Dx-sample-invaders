@@ -1,0 +1,108 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "http://maven.mini2dx.org/content/repositories/thirdparty/" }
+        maven { url "http://maven.mini2dx.org/content/repositories/releases/" }
+    }
+    dependencies {
+        classpath 'com.battlebardgames.parcl:parcl:1.0.6'
+        classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath 'org.robovm:robovm-gradle-plugin:1.2.0'
+    }
+}
+
+allprojects {
+    apply plugin: "eclipse"
+    apply plugin: "idea"
+
+    version = '1.0.0'
+    ext {
+        appName = 'mini2Dx-sample-invaders'
+        mini2DxVersion = '1.0.0-RC2'
+        gdxVersion = '1.6.1'
+        roboVMVersion = '1.2.0'
+        box2DLightsVersion = '1.3'
+        ashleyVersion = '1.4.0'
+        aiVersion = '1.5.0'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url "http://maven.mini2dx.org/content/repositories/thirdparty/" }
+        maven { url "http://maven.mini2dx.org/content/repositories/releases/" }
+    }
+}
+
+project(":" + rootProject.name + "-desktop") {
+    apply plugin: "java"
+    apply plugin: "application"
+    apply plugin: "com.battlebardgames.parcl"
+
+
+    dependencies {
+        compile project(":" + rootProject.name + "-core")
+        compile "org.mini2Dx:mini2Dx-desktop:$mini2DxVersion"
+    }
+    parcl {
+        exe {
+            vmArgs = ["-Xmx1g"]
+            exeName = "mini2Dx-sample-invaders"
+        }
+        app {
+            vmArgs = ["-Xmx1g"]
+            appName = "mini2Dx-sample-invaders"
+            icon = "icon.icns"
+            applicationCategory = "public.app-category.adventure-games"
+            displayName = "mini2Dx-sample-invaders"
+            identifier = "mini2Dx-sample-invaders"
+            copyright = "Copyright 2015 Your Company Name"
+        }
+        linux {
+            vmArgs = ["-Xmx1g"]
+            binName = "mini2Dx-sample-invaders"
+        }
+    }
+}
+
+project(":" + rootProject.name + "-android") {
+    apply plugin: "android"
+
+    configurations { natives }
+
+    dependencies {
+        compile project(":" + rootProject.name + "-core")
+        compile "org.mini2Dx:mini2Dx-android:$mini2DxVersion"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
+        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
+    }
+}
+
+project(":" + rootProject.name + "-ios") {
+    apply plugin: "java"
+    apply plugin: "robovm"
+
+
+    dependencies {
+        compile project(":" + rootProject.name + "-core")
+        compile "org.mini2Dx:mini2Dx-ios:$mini2DxVersion"
+        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
+    }
+}
+
+project(":" + rootProject.name + "-core") {
+    apply plugin: "java"
+
+
+    dependencies {
+        compile "org.mini2Dx:mini2Dx-core:$mini2DxVersion"
+    }
+}
+
+tasks.eclipse.doLast {
+    delete ".project"
+}

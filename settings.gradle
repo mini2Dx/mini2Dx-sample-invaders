@@ -1,0 +1,3 @@
+include 'desktop', 'android', 'ios', 'core'
+rootProject.name = 'mini2Dx-sample-invaders'
+rootProject.children.each { it.name = rootProject.name + "-" + it.name }
