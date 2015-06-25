@@ -11,9 +11,11 @@
  */
 package org.mini2Dx.sample.invaders.engine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mini2Dx.core.collisions.RegionQuad;
 import org.mini2Dx.core.engine.PositionChangeListener;
-import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.game.GameContainer;
 
 /**
@@ -21,23 +23,54 @@ import org.mini2Dx.core.game.GameContainer;
  * @author Thomas Cashman
  */
 public class CollisionTracker implements PositionChangeListener<GameObject> {
-	private RegionQuad<CollisionBox> collisions;
+	private RegionQuad<GameObject> trackedObjects;
+	private List<GameObject> objectsMoved;
+	private List<GameObject> detectedCollisions;
+	
+	private boolean playerDestroyed;
 	
 	public CollisionTracker(GameContainer gc) {
-		collisions = new RegionQuad<CollisionBox>(8, 0, 0, gc.getWidth(), gc.getHeight());
+		trackedObjects = new RegionQuad<GameObject>(8, 0, 0, gc.getWidth(), gc.getHeight());
+		objectsMoved = new ArrayList<GameObject>();
+		detectedCollisions = new ArrayList<GameObject>();
 	}
 	
 	public void preUpdate() {
-		
+		objectsMoved.clear();
 	}
 	
 	public void postUpdate() {
-		
+		for(int i = objectsMoved.size() - 1; i >= 0; i--) {
+			GameObject objectMoved = objectsMoved.get(i);
+			
+			detectedCollisions.clear();
+			trackedObjects.getElementsWithinRegion(detectedCollisions, objectMoved);
+			for(GameObject collision : detectedCollisions) {
+				objectMoved.notifyCollision(this, collision);
+			}
+		}
+	}
+	
+	public void add(GameObject obj) {
+		trackedObjects.add(obj);
+	}
+	
+	public void remove(GameObject obj) {
+		trackedObjects.remove(obj);
+		objectsMoved.remove(obj);
 	}
 
 	@Override
 	public void positionChanged(GameObject gameObject) {
-		
+		objectsMoved.add(gameObject);
+	}
+
+	public boolean isPlayerDestroyed() {
+		return playerDestroyed;
+	}
+
+	public void setPlayerDestroyed(boolean playerDestroyed) {
+		this.playerDestroyed = playerDestroyed;
 	}
 
 }

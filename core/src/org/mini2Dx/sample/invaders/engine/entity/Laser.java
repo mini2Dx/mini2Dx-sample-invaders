@@ -13,6 +13,8 @@ package org.mini2Dx.sample.invaders.engine.entity;
 
 import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.graphics.Graphics;
+import org.mini2Dx.sample.invaders.engine.CollisionResolver;
+import org.mini2Dx.sample.invaders.engine.CollisionTracker;
 import org.mini2Dx.sample.invaders.engine.GameObject;
 
 /**
@@ -20,10 +22,13 @@ import org.mini2Dx.sample.invaders.engine.GameObject;
  * @author Thomas Cashman
  */
 public class Laser extends GameObject {
+	private static final long serialVersionUID = -7348128924112601273L;
+	
+	private final LaserSource source;
 
-	public Laser(float x, float y, float width, float height) {
+	public Laser(LaserSource source, float x, float y, float width, float height) {
 		super(x, y, width, height);
-		// TODO Auto-generated constructor stub
+		this.source = source;
 	}
 
 	@Override
@@ -37,29 +42,38 @@ public class Laser extends GameObject {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
-	public void collidedWith(Player player) {
-		// TODO Auto-generated method stub
-		
+	public void notifyCollision(CollisionTracker collisionTracker, GameObject gameObject) {
+		gameObject.handleCollisionWith(this, collisionTracker);
 	}
 
 	@Override
-	public void collidedWith(Invader invader) {
-		// TODO Auto-generated method stub
-		
+	public void handleCollisionWith(Player player, CollisionTracker collisionTracker) {
+		CollisionResolver.resolveCollision(collisionTracker, this, player);
 	}
 
 	@Override
-	public void collidedWith(Laser shot) {
-		// TODO Auto-generated method stub
-		
+	public void handleCollisionWith(Invader invader, CollisionTracker collisionTracker) {
+		CollisionResolver.resolveCollision(collisionTracker, this, invader);
 	}
 
 	@Override
-	public void collidedWith(Asteroid asteroid) {
-		// TODO Auto-generated method stub
-		
+	public void handleCollisionWith(Laser shot, CollisionTracker collisionTracker) {
+		CollisionResolver.resolveCollision(collisionTracker, this, shot);
+	}
+
+	@Override
+	public void handleCollisionWith(Asteroid asteroid, CollisionTracker collisionTracker) {
+		CollisionResolver.resolveCollision(collisionTracker, this, asteroid);
 	}
 	
+	public LaserSource getSource() {
+		return source;
+	}
+
+	public enum LaserSource {
+		PLAYER,
+		INVADER
+	}
 }

@@ -13,29 +13,106 @@ package org.mini2Dx.sample.invaders.engine;
 
 import org.mini2Dx.sample.invaders.engine.entity.Asteroid;
 import org.mini2Dx.sample.invaders.engine.entity.Invader;
+import org.mini2Dx.sample.invaders.engine.entity.Laser.LaserSource;
 import org.mini2Dx.sample.invaders.engine.entity.Player;
 import org.mini2Dx.sample.invaders.engine.entity.Laser;
 
-
 /**
  *
- * @author Thomas Cashman
  */
 public class CollisionResolver {
 
-	public static void resolveCollision(Asteroid asteroid1, Asteroid asteroid2) {
-		
+	public static void resolveCollision(CollisionTracker collisionTracker,
+			Asteroid asteroid1, Asteroid asteroid2) {
+
 	}
-	
-	public static void resolveCollision(Asteroid asteroid, Invader invader) {
-		
+
+	public static void resolveCollision(CollisionTracker collisionTracker,
+			Asteroid asteroid, Invader invader) {
+
 	}
-	
-	public static void resolveCollision(Asteroid asteroid, Player player) {
-		
+
+	public static void resolveCollision(CollisionTracker collisionTracker,
+			Asteroid asteroid, Player player) {
+
 	}
-	
-	public static void resolveCollision(Asteroid asteroid, Laser shot) {
-		
+
+	public static void resolveCollision(CollisionTracker collisionTracker,
+			Asteroid asteroid, Laser laser) {
+
+	}
+
+	public static void resolveCollision(CollisionTracker collisionTracker,
+			Invader invader, Player player) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public static void resolveCollision(CollisionTracker collisionTracker,
+			Invader invader, Invader invader2) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public static void resolveCollision(CollisionTracker collisionTracker,
+			Invader invader, Laser laser) {
+		if(laser.getSource().equals(LaserSource.INVADER)) {
+			return;
+		}
+		collisionTracker.remove(laser);
+		collisionTracker.remove(invader);
+	}
+
+	public static void resolveCollision(CollisionTracker collisionTracker,
+			Laser laser, Laser laser2) {
+		if(laser.getSource().equals(laser2.getSource())) {
+			return;
+		}
+		collisionTracker.remove(laser);
+		collisionTracker.remove(laser2);
+	}
+
+	public static void resolveCollision(CollisionTracker collisionTracker,
+			Laser laser, Player player) {
+		if(laser.getSource().equals(LaserSource.PLAYER)) {
+			return;
+		}
+		collisionTracker.remove(laser);
+		collisionTracker.remove(player);
+		collisionTracker.setPlayerDestroyed(true);
+	}
+
+	public static void resolveCollision(CollisionTracker collisionTracker,
+			Player player, Player player2) {
+	}
+
+	public static void resolveCollision(CollisionTracker collisionTracker,
+			Invader invader, Asteroid asteroid) {
+		resolveCollision(collisionTracker, asteroid, invader);
+	}
+
+	public static void resolveCollision(CollisionTracker collisionTracker,
+			Laser laser, Invader invader) {
+		resolveCollision(collisionTracker, invader, laser);
+	}
+
+	public static void resolveCollision(CollisionTracker collisionTracker,
+			Laser laser, Asteroid asteroid) {
+		resolveCollision(collisionTracker, asteroid, laser);
+	}
+
+	public static void resolveCollision(CollisionTracker collisionTracker,
+			Player player, Laser laser) {
+		resolveCollision(collisionTracker, laser, player);
+	}
+
+	public static void resolveCollision(CollisionTracker collisionTracker,
+			Player player, Invader invader) {
+		resolveCollision(collisionTracker, invader, player);
+	}
+
+	public static void resolveCollision(CollisionTracker collisionTracker,
+			Player player, Asteroid asteroid) {
+		resolveCollision(collisionTracker, asteroid, player);
 	}
 }

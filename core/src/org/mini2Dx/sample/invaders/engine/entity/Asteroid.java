@@ -14,6 +14,7 @@ package org.mini2Dx.sample.invaders.engine.entity;
 import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.sample.invaders.engine.CollisionResolver;
+import org.mini2Dx.sample.invaders.engine.CollisionTracker;
 import org.mini2Dx.sample.invaders.engine.GameObject;
 
 /**
@@ -21,6 +22,7 @@ import org.mini2Dx.sample.invaders.engine.GameObject;
  * @author Thomas Cashman
  */
 public class Asteroid extends GameObject {
+	private static final long serialVersionUID = -1191014198232620338L;
 
 	public Asteroid(float x, float y, float width, float height) {
 		super(x, y, width, height);
@@ -39,22 +41,27 @@ public class Asteroid extends GameObject {
 	}
 
 	@Override
-	public void collidedWith(Player player) {
-		CollisionResolver.resolveCollision(this, player);
+	public void notifyCollision(CollisionTracker collisionTracker, GameObject gameObject) {
+		gameObject.handleCollisionWith(this, collisionTracker);
 	}
 
 	@Override
-	public void collidedWith(Invader invader) {
-		CollisionResolver.resolveCollision(this, invader);
+	public void handleCollisionWith(Player player, CollisionTracker collisionTracker) {
+		CollisionResolver.resolveCollision(collisionTracker, this, player);
 	}
 
 	@Override
-	public void collidedWith(Laser shot) {
-		CollisionResolver.resolveCollision(this, shot);
+	public void handleCollisionWith(Invader invader, CollisionTracker collisionTracker) {
+		CollisionResolver.resolveCollision(collisionTracker, this, invader);
 	}
 
 	@Override
-	public void collidedWith(Asteroid asteroid) {
-		CollisionResolver.resolveCollision(this, asteroid);
+	public void handleCollisionWith(Laser shot, CollisionTracker collisionTracker) {
+		CollisionResolver.resolveCollision(collisionTracker, this, shot);
+	}
+
+	@Override
+	public void handleCollisionWith(Asteroid asteroid, CollisionTracker collisionTracker) {
+		CollisionResolver.resolveCollision(collisionTracker, this, asteroid);
 	}
 }

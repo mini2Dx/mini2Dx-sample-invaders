@@ -25,14 +25,30 @@ import org.mini2Dx.core.graphics.Graphics;
  */
 public class GameEngine {
 	private List<GameObject> gameObjects;
+	private CollisionTracker collisionTracker;
+	private GameState state;
 	
 	public GameEngine(GameContainer gc) {
 		gameObjects = new ArrayList<GameObject>();
+		collisionTracker = new CollisionTracker(gc);
+	}
+	
+	public void reset() {
+		//TODO: Spawn player, asteroids and invaders
+		state = GameState.PLAYING;
 	}
 	
 	public void update(GameContainer gc, float delta) {
+		collisionTracker.preUpdate();
+		
 		for(int i = gameObjects.size() - 1; i >= 0; i--) {
 			gameObjects.get(i).update(gc, delta);
+		}
+		
+		collisionTracker.postUpdate();
+		
+		if(collisionTracker.isPlayerDestroyed()) {
+			state = GameState.LOSS;
 		}
 	}
 	
@@ -46,5 +62,9 @@ public class GameEngine {
 		for(int i = gameObjects.size() - 1; i >= 0; i--) {
 			gameObjects.get(i).render(g);
 		}
+	}
+
+	public GameState getState() {
+		return state;
 	}
 }

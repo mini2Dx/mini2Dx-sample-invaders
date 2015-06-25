@@ -11,15 +11,13 @@
  */
 package org.mini2Dx.sample.invaders.engine;
 
-import org.mini2Dx.core.engine.PositionChangeListener;
-import org.mini2Dx.core.engine.Positionable;
 import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.sample.invaders.engine.entity.Asteroid;
 import org.mini2Dx.sample.invaders.engine.entity.Invader;
-import org.mini2Dx.sample.invaders.engine.entity.Player;
 import org.mini2Dx.sample.invaders.engine.entity.Laser;
+import org.mini2Dx.sample.invaders.engine.entity.Player;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -27,62 +25,33 @@ import com.badlogic.gdx.math.Vector2;
  *
  * @author Thomas Cashman
  */
-public abstract class GameObject implements Positionable {
-	private CollisionBox collisionBox;
+public abstract class GameObject extends CollisionBox {
+	private static final long serialVersionUID = -2330813091269380040L;
+	
 	private Vector2 velocity;
 	
 	public GameObject(float x, float y, float width, float height) {
-		collisionBox = new CollisionBox(x, y, width, height);
+		super(x, y, width, height);
 		velocity = new Vector2();
 	}
 	
 	@Override
 	public void update(GameContainer gc, float delta) {
-		collisionBox.preUpdate();
+		preUpdate();
 		behave(gc, delta);
 	}
 
-	@Override
-	public void interpolate(GameContainer gc, float alpha) {
-		collisionBox.interpolate(gc, alpha);
-	}
-	
 	public abstract void behave(GameContainer gc, float delta);
 	
 	public abstract void render(Graphics g);
 	
-	public abstract void collidedWith(Player player);
+	public abstract void notifyCollision(CollisionTracker collisionTracker, GameObject gameObject);
 	
-	public abstract void collidedWith(Invader invader);
+	public abstract void handleCollisionWith(Player player, CollisionTracker collisionTracker);
 	
-	public abstract void collidedWith(Laser shot);
+	public abstract void handleCollisionWith(Invader invader, CollisionTracker collisionTracker);
 	
-	public abstract void collidedWith(Asteroid asteroid);
-
-	@Override
-	public float getDistanceTo(Positionable positionable) {
-		return collisionBox.getDistanceTo(positionable);
-	}
-
-	@Override
-	public float getX() {
-		return collisionBox.getX();
-	}
-
-	@Override
-	public float getY() {
-		return collisionBox.getY();
-	}
-
-	@Override
-	public <T extends Positionable> void addPostionChangeListener(
-			PositionChangeListener<T> listener) {
-		collisionBox.addPostionChangeListener(listener);
-	}
-
-	@Override
-	public <T extends Positionable> void removePositionChangeListener(
-			PositionChangeListener<T> listener) {
-		collisionBox.removePositionChangeListener(listener);
-	}
+	public abstract void handleCollisionWith(Laser shot, CollisionTracker collisionTracker);
+	
+	public abstract void handleCollisionWith(Asteroid asteroid, CollisionTracker collisionTracker);
 }
