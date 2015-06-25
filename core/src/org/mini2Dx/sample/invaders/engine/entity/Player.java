@@ -9,20 +9,57 @@
  * Neither the name of the mini2Dx nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.mini2Dx.sample.invaders.desktop;
+package org.mini2Dx.sample.invaders.engine.entity;
 
-import org.mini2Dx.desktop.DesktopMini2DxGame;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import org.mini2Dx.sample.invaders.InvadersGame;
+import org.mini2Dx.core.game.GameContainer;
+import org.mini2Dx.core.graphics.Graphics;
+import org.mini2Dx.sample.invaders.engine.GameObject;
 
-public class DesktopLauncher {
-	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.stencil = 8;
-		config.vSyncEnabled = true;
-        config.foregroundFPS = 0;
-        config.backgroundFPS = 0;
-		new LwjglApplication(new DesktopMini2DxGame(InvadersGame.GAME_IDENTIFIER, new InvadersGame()), config);
+/**
+ *
+ * @author Thomas Cashman
+ */
+public class Player extends GameObject {
+
+	public Player(float x, float y, float width, float height) {
+		super(x, y, width, height);
+		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public void behave(GameContainer gc, float delta) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void collidedWith(Player player) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void collidedWith(Invader invader) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void collidedWith(Laser shot) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void collidedWith(Asteroid asteroid) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

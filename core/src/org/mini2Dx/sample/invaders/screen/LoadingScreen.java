@@ -9,20 +9,45 @@
  * Neither the name of the mini2Dx nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.mini2Dx.sample.invaders.desktop;
+package org.mini2Dx.sample.invaders.screen;
 
-import org.mini2Dx.desktop.DesktopMini2DxGame;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import org.mini2Dx.sample.invaders.InvadersGame;
+import org.mini2Dx.core.game.GameContainer;
+import org.mini2Dx.core.graphics.Graphics;
+import org.mini2Dx.core.screen.BasicGameScreen;
+import org.mini2Dx.core.screen.GameScreen;
+import org.mini2Dx.core.screen.ScreenManager;
 
-public class DesktopLauncher {
-	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.stencil = 8;
-		config.vSyncEnabled = true;
-        config.foregroundFPS = 0;
-        config.backgroundFPS = 0;
-		new LwjglApplication(new DesktopMini2DxGame(InvadersGame.GAME_IDENTIFIER, new InvadersGame()), config);
+/**
+ * Implements the loading {@link GameScreen} and handles loading resources
+ */
+public class LoadingScreen extends BasicGameScreen {
+
+	@Override
+	public void initialise(GameContainer gc) {
+		
+	}
+
+	@Override
+	public void update(GameContainer gc,
+			ScreenManager<? extends GameScreen> screenManager, float delta) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void interpolate(GameContainer gc, float alpha) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void render(GameContainer gc, Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getId() {
+		return ScreenIds.LOADING_SCREEN_ID;
 	}
 }
