@@ -29,11 +29,22 @@ public class Invader extends GameObject {
 	private static final long serialVersionUID = 1236420163028788295L;
 	public static final float WIDTH = 48f;
 	public static final float HEIGHT = 39f;
+	private static final float SPEED = 0.5f;
+	
+	private final float minX;
+	private final float maxX;
+	private float targetY;
 	
 	private Sprite sprite;
+	private Direction direction;
 
 	public Invader(float x, float y) {
 		super(x, y, WIDTH, HEIGHT);
+		targetY = y;
+		
+		minX = x - (WIDTH * 3f);
+		maxX = x + (WIDTH * 3f);
+		direction = Direction.RIGHT;
 	}
 	
 	@Override
@@ -43,7 +54,31 @@ public class Invader extends GameObject {
 
 	@Override
 	public void behave(GameContainer gc, float delta) {
+		if(getX() >= maxX) {
+			if(direction == Direction.RIGHT) {
+				targetY += HEIGHT;
+				direction = Direction.LEFT;
+			}
+		}
+		if(getX() <= minX) {
+			if(direction == Direction.LEFT) {
+				targetY += HEIGHT;
+				direction = Direction.RIGHT;
+			}
+		}
 		
+		if(getY() < targetY) {
+			setY(getY() + SPEED);
+		} else {
+			switch(direction) {
+			case LEFT:
+				setX(getX() - SPEED);
+				break;
+			case RIGHT:
+				setX(getX() + SPEED);
+				break;
+			}
+		}
 	}
 
 	@Override
@@ -75,5 +110,9 @@ public class Invader extends GameObject {
 	@Override
 	public void handleCollisionWith(Asteroid asteroid, CollisionTracker collisionTracker) {
 		CollisionResolver.resolveCollision(collisionTracker, this, asteroid);
+	}
+	
+	private enum Direction {
+		LEFT, RIGHT
 	}
 }

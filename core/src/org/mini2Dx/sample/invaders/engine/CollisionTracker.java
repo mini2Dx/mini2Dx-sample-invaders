@@ -33,6 +33,7 @@ public class CollisionTracker implements PositionChangeListener<GameObject> {
 		trackedObjects = new RegionQuad<GameObject>(8, 0, 0, gc.getWidth(), gc.getHeight());
 		objectsMoved = new ArrayList<GameObject>();
 		detectedCollisions = new ArrayList<GameObject>();
+		playerDestroyed = false;
 	}
 	
 	public void preUpdate() {

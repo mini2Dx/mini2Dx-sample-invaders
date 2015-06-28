@@ -27,12 +27,18 @@ import com.badlogic.gdx.assets.AssetManager;
 public class GameEngine {
 	public static final int INVADERS_PER_ROW = 9;
 	public static final int TOTAL_INVADER_ROWS = 5;
-	
+
+	private final float startX;
+
 	private List<GameObject> gameObjects;
 	private CollisionTracker collisionTracker;
 	private GameState state;
 
 	public GameEngine(GameContainer gc) {
+		this.startX = (gc.getWidth() / 2f)
+				- ((INVADERS_PER_ROW / 2f) * Invader.WIDTH)
+				- ((INVADERS_PER_ROW / 2f) * 8f);
+
 		gameObjects = new ArrayList<GameObject>();
 		collisionTracker = new CollisionTracker(gc);
 		state = GameState.PLAYING;
@@ -41,7 +47,7 @@ public class GameEngine {
 	public void reset(AssetManager assetManager) {
 		for (int y = 0; y < TOTAL_INVADER_ROWS; y++) {
 			for (int x = 0; x < INVADERS_PER_ROW; x++) {
-				Invader invader = new Invader((x * Invader.WIDTH) + (x * 8f),
+				Invader invader = new Invader(startX + (x * Invader.WIDTH) + (x * 8f),
 						(y * Invader.HEIGHT) + (y * 4f));
 				invader.loadTexture(assetManager);
 
