@@ -13,9 +13,13 @@ package org.mini2Dx.sample.invaders.engine.entity;
 
 import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.graphics.Graphics;
+import org.mini2Dx.core.graphics.Sprite;
 import org.mini2Dx.sample.invaders.engine.CollisionResolver;
 import org.mini2Dx.sample.invaders.engine.CollisionTracker;
 import org.mini2Dx.sample.invaders.engine.GameObject;
+
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 
 /**
  *
@@ -23,21 +27,29 @@ import org.mini2Dx.sample.invaders.engine.GameObject;
  */
 public class Invader extends GameObject {
 	private static final long serialVersionUID = 1236420163028788295L;
+	public static final float WIDTH = 48f;
+	public static final float HEIGHT = 39f;
+	
+	private Sprite sprite;
 
-	public Invader(float x, float y, float width, float height) {
-		super(x, y, width, height);
+	public Invader(float x, float y) {
+		super(x, y, WIDTH, HEIGHT);
+	}
+	
+	@Override
+	public void loadTexture(AssetManager assetManager) {
+		sprite = new Sprite(assetManager.get("textures/enemy.png", Texture.class));
 	}
 
 	@Override
 	public void behave(GameContainer gc, float delta) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void render(Graphics g) {
-		// TODO Auto-generated method stub
-		
+		sprite.setPosition(getRenderX(), getRenderY());
+		g.drawSprite(sprite);
 	}
 
 	@Override

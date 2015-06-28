@@ -14,53 +14,68 @@ package org.mini2Dx.sample.invaders.engine;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mini2Dx.core.collisions.RegionQuad;
-import org.mini2Dx.core.engine.geom.CollisionBox;
 import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.graphics.Graphics;
+import org.mini2Dx.sample.invaders.engine.entity.Invader;
+
+import com.badlogic.gdx.assets.AssetManager;
 
 /**
  *
  * @author Thomas Cashman
  */
 public class GameEngine {
+	public static final int INVADERS_PER_ROW = 9;
+	public static final int TOTAL_INVADER_ROWS = 5;
+	
 	private List<GameObject> gameObjects;
 	private CollisionTracker collisionTracker;
 	private GameState state;
-	
+
 	public GameEngine(GameContainer gc) {
 		gameObjects = new ArrayList<GameObject>();
 		collisionTracker = new CollisionTracker(gc);
 		state = GameState.PLAYING;
 	}
-	
-	public void reset() {
-		//TODO: Spawn player, asteroids and invaders
+
+	public void reset(AssetManager assetManager) {
+		for (int y = 0; y < TOTAL_INVADER_ROWS; y++) {
+			for (int x = 0; x < INVADERS_PER_ROW; x++) {
+				Invader invader = new Invader((x * Invader.WIDTH) + (x * 8f),
+						(y * Invader.HEIGHT) + (y * 4f));
+				invader.loadTexture(assetManager);
+
+				gameObjects.add(invader);
+				collisionTracker.add(invader);
+			}
+		}
+
+		// TODO: Spawn player, asteroids and invaders
 		state = GameState.PLAYING;
 	}
-	
+
 	public void update(GameContainer gc, float delta) {
 		collisionTracker.preUpdate();
-		
-		for(int i = gameObjects.size() - 1; i >= 0; i--) {
+
+		for (int i = gameObjects.size() - 1; i >= 0; i--) {
 			gameObjects.get(i).update(gc, delta);
 		}
-		
+
 		collisionTracker.postUpdate();
-		
-		if(collisionTracker.isPlayerDestroyed()) {
+
+		if (collisionTracker.isPlayerDestroyed()) {
 			state = GameState.LOSS;
 		}
 	}
-	
+
 	public void interpolate(GameContainer gc, float alpha) {
-		for(int i = gameObjects.size() - 1; i >= 0; i--) {
+		for (int i = gameObjects.size() - 1; i >= 0; i--) {
 			gameObjects.get(i).interpolate(gc, alpha);
 		}
 	}
-	
+
 	public void render(GameContainer gc, Graphics g) {
-		for(int i = gameObjects.size() - 1; i >= 0; i--) {
+		for (int i = gameObjects.size() - 1; i >= 0; i--) {
 			gameObjects.get(i).render(g);
 		}
 	}

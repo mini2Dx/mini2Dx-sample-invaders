@@ -20,6 +20,7 @@ import org.mini2Dx.core.screen.Transition;
 import org.mini2Dx.sample.invaders.engine.GameEngine;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 
 /**
  * Implements the main gameplay {@link GameScreen}
@@ -27,7 +28,9 @@ import com.badlogic.gdx.assets.AssetManager;
 public class GameEngineScreen extends BasicGameScreen {
 	private AssetManager assetManager;
 	private GameEngine engine;
-	
+
+	private Texture background;
+
 	public GameEngineScreen(AssetManager assetManager) {
 		this.assetManager = assetManager;
 	}
@@ -40,14 +43,14 @@ public class GameEngineScreen extends BasicGameScreen {
 	@Override
 	public void update(GameContainer gc,
 			ScreenManager<? extends GameScreen> screenManager, float delta) {
-		switch(engine.getState()) {
+		switch (engine.getState()) {
 		case WIN:
-			//TODO: Render win text
-			//TODO: Wait for player input
+			// TODO: Render win text
+			// TODO: Wait for player input
 			break;
 		case LOSS:
-			//TODO: Render loss text
-			//TODO: Wait for player input
+			// TODO: Render loss text
+			// TODO: Wait for player input
 			break;
 		case PLAYING:
 			engine.update(gc, delta);
@@ -62,14 +65,22 @@ public class GameEngineScreen extends BasicGameScreen {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) {
+		// Repeat the background texture to fill the screen
+		for (int x = 0; x < gc.getWidth(); x += background.getWidth()) {
+			for (int y = 0; y < gc.getHeight(); y += background.getHeight()) {
+				g.drawTexture(background, x, y);
+			}
+		}
+
 		engine.render(gc, g);
 	}
-	
+
 	@Override
 	public void preTransitionIn(Transition transitionIn) {
-		
+		background = assetManager.get("textures/backgrounds/purple.png");
+		engine.reset(assetManager);
 	}
-	
+
 	@Override
 	public int getId() {
 		return ScreenIds.GAME_ENGINE_SCREEN_ID;

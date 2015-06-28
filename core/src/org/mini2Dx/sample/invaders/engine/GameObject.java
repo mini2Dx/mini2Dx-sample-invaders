@@ -19,7 +19,7 @@ import org.mini2Dx.sample.invaders.engine.entity.Invader;
 import org.mini2Dx.sample.invaders.engine.entity.Laser;
 import org.mini2Dx.sample.invaders.engine.entity.Player;
 
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.assets.AssetManager;
 
 /**
  *
@@ -31,6 +31,8 @@ public abstract class GameObject extends CollisionBox {
 	public GameObject(float x, float y, float width, float height) {
 		super(x, y, width, height);
 	}
+	
+	public abstract void loadTexture(AssetManager assetManager);
 	
 	@Override
 	public void update(GameContainer gc, float delta) {

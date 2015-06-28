@@ -17,6 +17,8 @@ import org.mini2Dx.sample.invaders.engine.CollisionResolver;
 import org.mini2Dx.sample.invaders.engine.CollisionTracker;
 import org.mini2Dx.sample.invaders.engine.GameObject;
 
+import com.badlogic.gdx.assets.AssetManager;
+
 /**
  *
  * @author Thomas Cashman
@@ -27,6 +29,12 @@ public class Player extends GameObject {
 	public Player(float x, float y, float width, float height) {
 		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public void loadTexture(AssetManager assetManager) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

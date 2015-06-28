@@ -13,9 +13,13 @@ package org.mini2Dx.sample.invaders.engine.entity;
 
 import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.graphics.Graphics;
+import org.mini2Dx.core.graphics.Sprite;
 import org.mini2Dx.sample.invaders.engine.CollisionResolver;
 import org.mini2Dx.sample.invaders.engine.CollisionTracker;
 import org.mini2Dx.sample.invaders.engine.GameObject;
+
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 
 /**
  *
@@ -23,9 +27,29 @@ import org.mini2Dx.sample.invaders.engine.GameObject;
  */
 public class Asteroid extends GameObject {
 	private static final long serialVersionUID = -1191014198232620338L;
+	
+	private final AsteroidType type;
+	
+	private Sprite sprite;
 
-	public Asteroid(float x, float y, float width, float height) {
-		super(x, y, width, height);
+	public Asteroid(AsteroidType type, float x, float y) {
+		super(x, y, 1f, 1f);
+		this.type = type;
+	}
+
+	@Override
+	public void loadTexture(AssetManager assetManager) {
+		switch (type) {
+		case SMALL:
+			sprite = new Sprite(assetManager.get("textures/meteor_small.png", Texture.class));
+			break;
+		case MEDIUM:
+			sprite = new Sprite(assetManager.get("textures/meteor_medium.png", Texture.class));
+			break;
+		case LARGE:
+			sprite = new Sprite(assetManager.get("textures/meteor_big.png", Texture.class));
+			break;
+		}
 	}
 
 	@Override
@@ -36,8 +60,8 @@ public class Asteroid extends GameObject {
 
 	@Override
 	public void render(Graphics g) {
-		// TODO Auto-generated method stub
-		
+		sprite.setPosition(getRenderX(), getRenderY());
+		g.drawSprite(sprite);
 	}
 
 	@Override

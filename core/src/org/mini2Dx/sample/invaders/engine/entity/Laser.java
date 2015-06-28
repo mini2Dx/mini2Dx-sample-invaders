@@ -17,6 +17,8 @@ import org.mini2Dx.sample.invaders.engine.CollisionResolver;
 import org.mini2Dx.sample.invaders.engine.CollisionTracker;
 import org.mini2Dx.sample.invaders.engine.GameObject;
 
+import com.badlogic.gdx.assets.AssetManager;
+
 /**
  *
  * @author Thomas Cashman
@@ -29,6 +31,12 @@ public class Laser extends GameObject {
 	public Laser(LaserSource source, float x, float y, float width, float height) {
 		super(x, y, width, height);
 		this.source = source;
+	}
+	
+	@Override
+	public void loadTexture(AssetManager assetManager) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
