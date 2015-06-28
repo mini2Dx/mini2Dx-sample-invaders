@@ -31,6 +31,7 @@ public class GameEngine {
 	public GameEngine(GameContainer gc) {
 		gameObjects = new ArrayList<GameObject>();
 		collisionTracker = new CollisionTracker(gc);
+		state = GameState.PLAYING;
 	}
 	
 	public void reset() {

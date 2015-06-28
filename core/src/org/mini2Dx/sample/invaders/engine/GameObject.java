@@ -28,11 +28,8 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class GameObject extends CollisionBox {
 	private static final long serialVersionUID = -2330813091269380040L;
 	
-	private Vector2 velocity;
-	
 	public GameObject(float x, float y, float width, float height) {
 		super(x, y, width, height);
-		velocity = new Vector2();
 	}
 	
 	@Override

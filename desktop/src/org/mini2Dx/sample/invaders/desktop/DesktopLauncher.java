@@ -23,6 +23,7 @@ public class DesktopLauncher {
 		config.vSyncEnabled = true;
         config.foregroundFPS = 0;
         config.backgroundFPS = 0;
+        config.title = "mini2Dx Invaders Sample";
 		new LwjglApplication(new DesktopMini2DxGame(InvadersGame.GAME_IDENTIFIER, new InvadersGame()), config);
 	}
 }

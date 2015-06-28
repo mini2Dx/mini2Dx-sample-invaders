@@ -16,13 +16,21 @@ import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.screen.BasicGameScreen;
 import org.mini2Dx.core.screen.GameScreen;
 import org.mini2Dx.core.screen.ScreenManager;
+import org.mini2Dx.core.screen.Transition;
 import org.mini2Dx.sample.invaders.engine.GameEngine;
+
+import com.badlogic.gdx.assets.AssetManager;
 
 /**
  * Implements the main gameplay {@link GameScreen}
  */
 public class GameEngineScreen extends BasicGameScreen {
+	private AssetManager assetManager;
 	private GameEngine engine;
+	
+	public GameEngineScreen(AssetManager assetManager) {
+		this.assetManager = assetManager;
+	}
 
 	@Override
 	public void initialise(GameContainer gc) {
@@ -55,6 +63,11 @@ public class GameEngineScreen extends BasicGameScreen {
 	@Override
 	public void render(GameContainer gc, Graphics g) {
 		engine.render(gc, g);
+	}
+	
+	@Override
+	public void preTransitionIn(Transition transitionIn) {
+		
 	}
 	
 	@Override

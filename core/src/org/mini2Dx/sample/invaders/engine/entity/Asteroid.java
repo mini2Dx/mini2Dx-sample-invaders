@@ -64,4 +64,10 @@ public class Asteroid extends GameObject {
 	public void handleCollisionWith(Asteroid asteroid, CollisionTracker collisionTracker) {
 		CollisionResolver.resolveCollision(collisionTracker, this, asteroid);
 	}
+	
+	public enum AsteroidType {
+		SMALL,
+		MEDIUM,
+		LARGE
+	}
 }

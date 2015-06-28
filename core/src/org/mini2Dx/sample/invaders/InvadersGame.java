@@ -16,17 +16,23 @@ import org.mini2Dx.sample.invaders.screen.GameEngineScreen;
 import org.mini2Dx.sample.invaders.screen.LoadingScreen;
 import org.mini2Dx.sample.invaders.screen.ScreenIds;
 
+import com.badlogic.gdx.assets.AssetManager;
+
 /**
  * After the platform-dependent launchers (e.g. DesktopLauncher, AndroidLauncher, etc.)
  * run, this is where all platforms begin running the same code.
  */
 public class InvadersGame extends ScreenBasedGame {
 	public static final String GAME_IDENTIFIER = "org.mini2Dx.sample.invaders";
+	
+	private AssetManager assetManager;
 
 	@Override
 	public void initialise() {
-		addScreen(new LoadingScreen());
-		addScreen(new GameEngineScreen());
+		assetManager = new AssetManager();
+		
+		addScreen(new LoadingScreen(assetManager));
+		addScreen(new GameEngineScreen(assetManager));
 	}
 	
 	@Override
