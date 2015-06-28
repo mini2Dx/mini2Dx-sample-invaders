@@ -19,7 +19,7 @@ allprojects {
     version = '1.0.0'
     ext {
         appName = 'mini2Dx-sample-invaders'
-        mini2DxVersion = '1.0.0-RC2'
+        mini2DxVersion = '1.0.1-SNAPSHOT'
         gdxVersion = '1.6.1'
         roboVMVersion = '1.2.0'
         box2DLightsVersion = '1.3'
