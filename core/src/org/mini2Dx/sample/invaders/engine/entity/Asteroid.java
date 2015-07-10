@@ -50,12 +50,13 @@ public class Asteroid extends GameObject {
 			sprite = new Sprite(assetManager.get("textures/meteor_big.png", Texture.class));
 			break;
 		}
+		setWidth(sprite.getWidth());
+		setHeight(sprite.getHeight());
 	}
 
 	@Override
 	public void behave(GameContainer gc, float delta) {
-		// TODO Auto-generated method stub
-		
+		sprite.rotate(45f * delta);
 	}
 
 	@Override
