@@ -3,8 +3,10 @@ apply plugin: "application"
 sourceCompatibility = 1.7
 sourceSets.main.java.srcDirs = [ "src/" ]
 
-mainClassName = "org.mini2Dx.sample.invaders.desktop.DesktopLauncher"
-project.ext.assetsDir = new File("../android/assets");
+mainClassName = "org.mini2Dx.invaders.desktop.DesktopLauncher"
+project.ext.assetsDir = new File("../assets");
+
+sourceSets.main.resources.srcDirs = [project.ext.assetsDir.getAbsolutePath()]
 
 task launchDesktop(dependsOn: classes, type: JavaExec) {
     main = project.mainClassName
@@ -17,7 +19,7 @@ task launchDesktop(dependsOn: classes, type: JavaExec) {
 eclipse {
     project {
         name = appName + "-desktop"
-        linkedResource name: 'assets', type: '2', location: 'PARENT-1-PROJECT_LOC/android/assets'
+        linkedResource name: 'assets', type: '2', location: 'PARENT-1-PROJECT_LOC/assets'
     }
 }
 
